@@ -8,6 +8,88 @@
 <body>
     <h1>
         Portifolio database - Analise e desenvolvimento de Sistema - Faculdade UniFecaf
+
+        create database db_sistema_faculdade;
+show databases;
+use db_sistema_faculdade;
+
+show tables;
+
+create table tbl_alunos (
+id int primary key auto_increment,
+nome varchar(100) not null,
+data_nascimento date,
+cpf varchar (20),
+telefone varchar (50),
+email varchar (50)
+endereco varchar (50)
+
+);
+
+create table tbl_professor (
+id int primary key auto_increment,
+nome varchar (100),
+cpf varchar (20),
+formacao varchar (100),
+email varchar (100),
+telefone varchar (100)
+
+);
+
+create table tbl_matricula (
+id int primary key auto_increment,
+aluno_id int,
+turmas_id int,
+data_matricula date,
+
+foreign key (aluno_id) references tbl_alunos (id),
+foreign key (turmas_id) references tbl_turmas (id),
+);
+
+create table tbl_notas (
+id_nota int primary key auto_increment,
+matricula_id int,
+disciplina_id int,
+nota1 decimal (5,2),
+nota2 decimal (5,2),
+nota_final decimal (5,2),
+
+foreign key (matricula_id) references tbl_matricula (id),
+foreign key (disciplina_id) references tbl_disciplina (id)
+
+);
+
+create table tbl_cursos (
+id int primary key auto_increment,
+nome varchar (50),
+descricao text,
+carga_horario int
+
+);
+
+create table tbl_disciplina (
+id int primary key auto_increment,
+nome varchar (100),
+carga_horaria int,
+cursos_id int,
+professor_id int,
+
+foreign key (cursos_id) references tbl_cursos (id),
+foreign key (professor_id) references tbl_professor (id)
+
+);
+
+create table tbl_turmas (
+id int primary key auto_increment,
+curso_id int,
+ano year,
+semestre enum ('1', '2'),
+descricao varchar (100),
+
+foreign key (curso_id) references tbl_curso (id)
+
+);
+
     </h1>
 </body>
 </html>
